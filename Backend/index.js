@@ -45,7 +45,7 @@ app.post("/addProduct", async (req, res) => {
             "description": req.body.description,
             "category": req.body.category,
             "image": req.body.image,
-            "rating": 
+            "rating":
             {
                 "rate": req.body.rating.rate,
                 "count": req.body.rating.count
@@ -84,34 +84,39 @@ app.delete("/deleteProduct/:id", async (req, res) => {
 });
 
 app.put("/updateProduct/:id", async (req, res) => {
+    try {
 
-    const id = Number(req.params.id);
-    const query = { id: id };
+        const id = Number(req.params.id);
+        const query = { id: id };
 
-    await client.connect();
+        await client.connect();
 
-    const updateData = {
-        $set: {
-            "title": req.body.title,
-            "price": req.body.price,
-            "description": req.body.description,
-            "category": req.body.category,
-            "image": req.body.image,
-            "rating": 
-            {
-                "rate": req.body.rating.rate,
-                "count": req.body.rating.count
+        const updateData = {
+            $set: {
+                "title": req.body.title,
+                "price": req.body.price,
+                "description": req.body.description,
+                "category": req.body.category,
+                "image": req.body.image,
+                "rating":
+                {
+                    "rate": req.body.rating.rate,
+                    "count": req.body.rating.count
+                }
             }
+        };
+
+        const productUpdated = await db.collection("fakestore_catalog").findOne(query);
+        const results = await db.collection("fakestore_catalog").updateOne(query, updateData, {});
+
+        if (results.matchedCount === 0) {
+            return res.status(404).send({ message: 'Product not found' });
         }
-    };
 
-    const productUpdated = await db.collection("fakestore_catalog").findOne(query);
-    const results = await db.collection("fakestore_catalog").updateOne(query, updateData, {});
-
-    if (results.matchedCount === 0) {
-        return res.status(404).send({ message: 'Product not found' });
+        res.status(200);
+        res.send(productUpdated);
+    } catch (error) {
+        console.error("Error updating product:", error);
+        res.status(500).send({ message: 'Internal Server Error' });
     }
-
-    res.status(200);
-    res.send(productUpdated);
 });
