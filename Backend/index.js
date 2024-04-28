@@ -34,6 +34,18 @@ app.get("/listProducts", async (req, res) => {
     res.send(results);
 });
 
+app.get("/listProducts/:id", async (req, res) => {
+    const productid = Number(req.params.id);
+    await client.connect();
+
+    const query = { "id": productid };
+    const results = await db.collection("fakestore_catalog")
+        .findOne(query);
+
+    if (!results) res.send("Not Found").status(404);
+    else res.send(results).status(200);
+});
+
 app.post("/addProduct", async (req, res) => {
 
     try {

@@ -3,7 +3,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { useForm } from "react-hook-form";
 import React, { useState, useEffect } from "react";
-import jakePhoto from "./jake.jpg";
 
 function App() {
   const [viewer, setViewer] = useState(1);
