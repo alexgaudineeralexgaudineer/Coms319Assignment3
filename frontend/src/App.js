@@ -461,6 +461,7 @@ function App() {
           if (response.ok) {
             const data = await response.json();
             setProduct(data); // Set product details to display in the form
+            setUpdatedData(data)
           } else {
             console.error("Failed to fetch product");
           }
@@ -472,6 +473,7 @@ function App() {
 
     // Update product details
     const handleUpdate = async () => {
+      console.log(JSON.stringify(updatedData))
       try {
         const response = await fetch(`http://localhost:8081/updateProduct/${productId}`, {
           method: "PUT",
@@ -493,6 +495,7 @@ function App() {
     // Handle change in form inputs
     const handleChange = (e) => {
       const { name, value } = e.target;
+      console.log(JSON.stringify(updatedData))
       setUpdatedData((prevData) => ({
         ...prevData,
         [name]: value,
