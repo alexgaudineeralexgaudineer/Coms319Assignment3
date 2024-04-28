@@ -340,6 +340,7 @@ function App() {
         <div class="col">Description:</div>
         <div class="col">Price:</div>
         <div class="col">Rating:</div>
+        <div class="col">Rating Count:</div>
       </div>
     </div>`;
 
@@ -357,6 +358,7 @@ function App() {
           <div class="col">${myProducts[i].description}</div>
           <div class="col">${myProducts[i].price}</div>
           <div class="col">${myProducts[i].rating.rate}</div>
+          <div class="col">${myProducts[i].rating.count}</div>
         </div>
       </div>
           `;
