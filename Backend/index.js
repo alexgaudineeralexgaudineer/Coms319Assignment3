@@ -52,15 +52,15 @@ app.post("/addProduct", async (req, res) => {
         await client.connect();
 
         const newProduct = {
-            "id": req.body.id,
+            "id": Number(req.body.id),
             "title": req.body.title,
-            "price": req.body.price,
+            "price": Number(req.body.price),
             "description": req.body.description,
             "category": req.body.category,
             "image": req.body.image,
             "rating":
             {
-                "rate": req.body.rating.rate,
+                "rate": Number(req.body.rating.rate),
                 "count": req.body.rating.count
             }
         };
