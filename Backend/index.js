@@ -52,6 +52,7 @@ app.post("/addProduct", async (req, res) => {
         await client.connect();
 
         const newProduct = {
+            "id": req.body.id,
             "title": req.body.title,
             "price": req.body.price,
             "description": req.body.description,
